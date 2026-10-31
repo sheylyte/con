@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08c9c5">
+
+    <title>LARCK Control</title>
+
+    <link rel="stylesheet" href="control.css">
+    <link rel="icon" href="larck.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="control.js" defer></script>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <main class="login-screen" id="loginScreen">
+        <section class="login-card">
+            <div class="brand-mark">L</div>
+
+            <p class="eyebrow">ADMINISTRATION PORTAL</p>
+            <h1>LARCK <span>Control</span></h1>
+            <p class="login-description">
+                Manage your platform from one secure place.
+            </p>
+
+            <form id="loginForm">
+                <label for="adminEmail">Administrator email</label>
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="Enter your admin email"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="adminPassword">Password</label>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                    <button type="button" id="togglePassword">
+                        Show
+                    </button>
+                </div>
+
+                <button type="submit" class="primary-button" id="loginButton">
+                    Sign in to Control
+                </button>
+
+                <p class="form-message" id="loginMessage" role="status"></p>
+            </form>
+
+            <p class="security-note">
+                <span class="security-dot"></span>
+                Restricted administrator access
+            </p>
+        </section>
+    </main>
+
+    <!-- ADMIN DASHBOARD -->
+    <main class="dashboard" id="dashboard" hidden>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="small-brand-mark">L</div>
+                <div>
+                    <strong>LARCK</strong>
+                    <span>CONTROL CENTER</span>
+                </div>
+            </div>
+
+            <p class="nav-heading">WORKSPACE</p>
+
+            <nav class="admin-nav">
+                <button class="nav-item active" data-section="overview">
+                    <span>▦</span> Overview
+                </button>
+                <button class="nav-item" data-section="users">
+                    <span>♙</span> User Management
+                </button>
+                <button class="nav-item" data-section="bd-space">
+                    <span>♙</span> BD Space
+                </button>
+
+                <button class="nav-item" data-section="announcements">
+                    <span>▤</span> Announcements
+                </button>
+                <button class="nav-item" data-section="banners">
+                     <span>▧</span> Home Banners
+                </button>
+                <button class="nav-item" data-section="moderation">
+                    <span>⚑</span> Moderation
+                </button>
+                <button class="nav-item" data-section="reports">
+                    <span>▧</span> Reports
+                </button>
+                <button class="nav-item" data-section="activity">
+                    <span>◈</span> Activity & Games
+                </button>
+                <button type="button" class="nav-item" data-section="coin-reserve">
+                <span>◈</span>
+                <span>Coin Reserve</span>
+                </button>
+
+                <button class="nav-item" data-section="coinControl">
+                      <span>◈</span>
+                     <span>Coin Control</span>
+                     </button>
+
+                <button class="nav-item" data-section="settings">
+                    <span>⚙</span> Settings
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="admin-avatar">A</div>
+                <div class="admin-identity">
+                    <strong>Administrator</strong>
+                    <span id="adminEmailDisplay"></span>
+                </div>
+                <button id="logoutButton" class="logout-button"
+                        title="Sign out" aria-label="Sign out">↪</button>
+            </div>
+        </aside>
+
+        <section class="dashboard-main">
+            <header class="topbar">
+                <button id="menuButton" class="menu-button"
+                        aria-label="Toggle navigation">☰</button>
+                <div>
+                    <p class="eyebrow">LARCK PLATFORM</p>
+                    <h2 id="pageTitle">Overview</h2>
+                </div>
+                <div class="connection-status">
+                    <span class="status-dot"></span>
+                    Admin portal
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <section class="welcome-banner">
+                    <div>
+                        <p class="eyebrow">CONTROL CENTER</p>
+                        <h1>Welcome to LARCK Control</h1>
+                        <p>Your platform administration starts here.</p>
+                    </div>
+                    <div class="welcome-symbol">L</div>
+                </section>
+
+                <div id="sectionContent">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Platform Overview</h3>
+                            <p>Your administration workspace at a glance.</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-grid">
+                        <article class="stat-card">
+                            <div class="stat-icon teal">♙</div>
+                            <p>Total Users</p>
+                            <h3>—</h3>
+                            <span>Connected to your user records later</span>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon purple">▤</div>
+                            <p>Announcements</p>
+                            <h3>—</h3>
+                            <span>Manage official updates</span>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon orange">⚑</div>
+                            <p>Pending Reports</p>
+                            <h3>—</h3>
+                            <span>Reporting tools to be connected</span>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon blue">◈</div>
+                            <p>Platform Status</p>
+                            <h3>Ready</h3>
+                            <span>Dashboard foundation</span>
+                        </article>
+                    </div>
+
+                    <section class="activity-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Quick Access</h3>
+                                <p>Choose an area to work on.</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-grid">
+                            <button data-section="users" class="quick-card">
+                                <span>♙</span>
+                                <strong>Manage Users</strong>
+                                <small>Profiles and account administration</small>
+                            </button>
+
+                            <button data-section="coinControl" class="quick-card">
+                              <span>◈</span>
+                              <strong>Coin Control</strong>
+                              <small>Review customer and seller payments</small>
+                             </button>
+
+                            <button data-section="announcements" class="quick-card">
+                                <span>▤</span>
+                                <strong>Announcements</strong>
+                                <small>Official LARCK updates</small>
+                            </button>
+
+                            <button data-section="moderation" class="quick-card">
+                                <span>⚑</span>
+                                <strong>Moderation</strong>
+                                <small>Platform safety tools</small>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
